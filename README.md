@@ -12,9 +12,9 @@ Use your android device to join your universities community. Download the UniCon
 
 ## Scrum Roles
 
-**Product Owner/Scrum Master**: Pranav Mahajan
-**Front-End Developvers**: Bill Appiagyei & Edward Bender
-**Back-End Developers**: Bipal Goyal, Anand Pandey & Pranav Mahajan
+- **Product Owner/Scrum Master**: Pranav Mahajan
+- **Front-End Developvers**: Bill Appiagyei & Edward Bender
+- **Back-End Developers**: Bipal Goyal, Anand Pandey & Pranav Mahajan
 
 ## Standup
 
