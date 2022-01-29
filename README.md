@@ -11,7 +11,8 @@ Do you want to know what is trending at your university? Do you want to know mor
 Use your android device to join your universities community. Download the UniConnect app today!
 
 ## Storyboard
-[Main App View](https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/mainView.svg)
+<img src = “/readmeAssets/mainView.svg” >
+
 something goes here
 
 ## Class Diagram
