@@ -43,7 +43,177 @@ somethigns goes here
 
 ## Functional Requirments
 
-Somethign goes here
+###Examples
+
+####Given
+The user is not logged in
+
+####When
+the user opens the app
+
+####When
+the user clicks on "create account"
+
+####When
+the user fills in "eternallydoomed" as username, "abc@xyz.com" as email, and "Pa$$w0rd" as password
+
+####Then
+an account is created for the user through firebase authentication
+
+---
+
+####Given
+
+####When
+the user opens the app
+
+####Then
+The user views a feed of posts that are ordered by popularity
+
+---
+
+####Given
+The user is in the app
+
+####When
+the user clicks on one of the post
+
+####Then
+the user is able to see the post in detail, including comments and pictures
+
+---
+
+####Given
+The user is in the app
+
+####When
+the user searchs in the search bar
+
+####Then
+The user views a feed of posts that match the search text
+
+---
+
+####Given
+The user is in the app
+
+####When
+the user is not logged in
+
+####Then
+the user can log in or sign up
+
+---
+
+####Given
+The user has an account
+
+####When
+the user logs in
+
+####Then
+the user sees a personalized feed of posts
+
+2. Creating posts
+
+---
+
+####Given
+The user has an account and is logged in
+
+####When
+the user click on the "Add Post" button
+
+####When
+The user fills in Title, description, photo (optional), community
+
+####Then
+the user's post is saved in the database
+
+---
+
+####Given
+Bipal has an account and is logged in
+
+####When
+Bipal clicks on the "Add Post" button
+
+####When
+Bipal fills in "Mobile App development" as title
+
+####When
+Bipal fills in "" as description
+
+####When
+Bipal fills in "School of IT" as community
+
+####Then
+Bipal's post is saved in the database with "Mobile App development" as title and "School of IT" as community
+
+---
+
+####Given
+Bipal has an account and is logged in
+
+####When
+Bipal clicks on the "Add Post" button
+
+####When
+Bipal fills in "Mobile App development" as title
+
+####When
+Bipal fills in "" as description
+
+####Then
+An error occurs and the post is not saved in the database
+
+---
+
+####Given
+The user is logged in
+
+####When
+The user is on a post
+
+####When
+the user clicks on comment under the main title
+
+####When
+the user fills out a comment 
+
+####Then
+The comment is saved under the post
+
+---
+
+####Given
+The user is logged in
+
+####When
+The user is on a post
+
+####When
+the user clicks on comment under a sub comment
+
+####When
+the user fills out a comment 
+
+####Then
+The comment is saved under the post
+
+---
+
+####Given
+The user is logged in
+
+####When
+The user is on a post
+
+####When
+the user tries commenting under a sub comment
+
+####Then
+The user is not allowed to do that
 
 ## Scrum Roles
 
