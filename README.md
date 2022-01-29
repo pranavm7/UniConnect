@@ -10,6 +10,40 @@ Do you want to know what is trending at your university? Do you want to know mor
 
 Use your android device to join your universities community. Download the UniConnect app today!
 
+## Storyboard
+
+something goes here
+
+## Class Diagram
+
+somethigns goes here
+
+#### Description
+
+**MainActivity**: This is the first screen that the user sees, it displays a feed of posts.
+
+**MakePostActivity**: This screen allows a logged in user to create a post
+
+**PostDetailsActivity**: This screen shows the details of a post, including post title, description, photos, comments, and replies
+
+**RetrofitClientInstance**: Bootstrap class required for Retrofit
+
+**Community**: Noun class that represents a community
+
+**Post**: Noun class that represents a post
+
+**Comment**: Noun class that represents a comment
+
+**IPostDAO**: interface to work with Post data
+
+**ICommentDAO**: interface to work with Comment data
+
+**ICommunityDAO**: interface to work with Community data
+
+## Functional Requirments
+
+Somethign goes here
+
 ## Scrum Roles
 
 - **Product Owner/Scrum Master**: Pranav Mahajan
