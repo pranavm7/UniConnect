@@ -43,176 +43,176 @@ somethigns goes here
 
 ## Functional Requirments
 
-###Examples
+### Examples
 
-####Given
+#### Given
 The user is not logged in
 
-####When
+#### When
 the user opens the app
 
-####When
+#### When
 the user clicks on "create account"
 
-####When
+#### When
 the user fills in "eternallydoomed" as username, "abc@xyz.com" as email, and "Pa$$w0rd" as password
 
-####Then
+#### Then
 an account is created for the user through firebase authentication
 
 ---
 
-####Given
+#### Given
 
-####When
+#### When
 the user opens the app
 
-####Then
+#### Then
 The user views a feed of posts that are ordered by popularity
 
 ---
 
-####Given
+#### Given
 The user is in the app
 
-####When
+#### When
 the user clicks on one of the post
 
-####Then
+#### Then
 the user is able to see the post in detail, including comments and pictures
 
 ---
 
-####Given
+#### Given
 The user is in the app
 
-####When
+#### When
 the user searchs in the search bar
 
-####Then
+#### Then
 The user views a feed of posts that match the search text
 
 ---
 
-####Given
+#### Given
 The user is in the app
 
-####When
+#### When
 the user is not logged in
 
-####Then
+#### Then
 the user can log in or sign up
 
 ---
 
-####Given
+#### Given
 The user has an account
 
-####When
+#### When
 the user logs in
 
-####Then
+#### Then
 the user sees a personalized feed of posts
 
 2. Creating posts
 
 ---
 
-####Given
+#### Given
 The user has an account and is logged in
 
-####When
+#### When
 the user click on the "Add Post" button
 
-####When
+#### When
 The user fills in Title, description, photo (optional), community
 
-####Then
+#### Then
 the user's post is saved in the database
 
 ---
 
-####Given
+#### Given
 Bipal has an account and is logged in
 
-####When
+#### When
 Bipal clicks on the "Add Post" button
 
-####When
+#### When
 Bipal fills in "Mobile App development" as title
 
-####When
+#### When
 Bipal fills in "" as description
 
-####When
+#### When
 Bipal fills in "School of IT" as community
 
-####Then
+#### Then
 Bipal's post is saved in the database with "Mobile App development" as title and "School of IT" as community
 
 ---
 
-####Given
+#### Given
 Bipal has an account and is logged in
 
-####When
+#### When
 Bipal clicks on the "Add Post" button
 
-####When
+#### When
 Bipal fills in "Mobile App development" as title
 
-####When
+#### When
 Bipal fills in "" as description
 
-####Then
+#### Then
 An error occurs and the post is not saved in the database
 
 ---
 
-####Given
+#### Given
 The user is logged in
 
-####When
+#### When
 The user is on a post
 
-####When
+#### When
 the user clicks on comment under the main title
 
-####When
+#### When
 the user fills out a comment 
 
-####Then
+#### Then
 The comment is saved under the post
 
 ---
 
-####Given
+#### Given
 The user is logged in
 
-####When
+#### When
 The user is on a post
 
-####When
+#### When
 the user clicks on comment under a sub comment
 
-####When
+#### When
 the user fills out a comment 
 
-####Then
+#### Then
 The comment is saved under the post
 
 ---
 
-####Given
+#### Given
 The user is logged in
 
-####When
+#### When
 The user is on a post
 
-####When
+#### When
 the user tries commenting under a sub comment
 
-####Then
+#### Then
 The user is not allowed to do that
 
 ## Scrum Roles
