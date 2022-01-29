@@ -11,14 +11,14 @@ Do you want to know what is trending at your university? Do you want to know mor
 Use your android device to join your universities community. Download the UniConnect app today!
 
 ## Storyboard
-
+[Main App View](https://raw.githubusercontent.com/pranavm7/UniConnect/main/readmeAssets/mainView.svg)
 something goes here
 
 ## Class Diagram
 
 somethigns goes here
 
-#### Description
+### Description
 
 **MainActivity**: This is the first screen that the user sees, it displays a feed of posts.
 
