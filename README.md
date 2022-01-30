@@ -20,7 +20,7 @@ Use your android device to join your universities community. Download the UniCon
 
 ## Class Diagram
 
-<img src="https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/Class_Diagram.jpg" height=950>
+<img src="https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/Class_Diagram_New.jpg" height=950>
 
 ### Description
 
