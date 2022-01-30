@@ -11,10 +11,12 @@ Do you want to know what is trending at your university? Do you want to know mor
 Use your android device to join your universities community. Download the UniConnect app today!
 
 ## Storyboard
+---
+### Main View:
 ![alt text](https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/mainView.svg)
-
-![alt text](https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/makePost.svg)
-
+### Make a Post:
+![alt text](https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/makePost.png)
+### Read a Post:
 ![alt text](https://github.com/pranavm7/UniConnect/blob/main/readmeAssets/postDetails.svg)
 
 
