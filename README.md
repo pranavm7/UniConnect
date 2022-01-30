@@ -11,7 +11,8 @@ Do you want to know what is trending at your university? Do you want to know mor
 Use your android device to join your universities community. Download the UniConnect app today!
 
 ## Storyboard
-<img src = “readmeAssets/mainView.svg” >
+![Main Screen](./mainView.svg)
+<img src="./mainView.svg">
 
 something goes here
 
