@@ -1,3 +1,4 @@
+![UniConnect Logo](https://github.com/pranavm7/UniConnect/blob/23664bbb8b06340709c1fec4d7a658b51937d87f/readmeAssets/UniConnect.png)
 # UniConnect
 
 ## Introduction
