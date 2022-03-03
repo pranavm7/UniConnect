@@ -10,5 +10,10 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class UniConnectUnitTest {
-    
+    @Test
+    fun `Given a post DTO when title is CCM Concert and description is In Corbet Auditorium `{
+        var post = Post("CCM Concert", "In Corbet Auditorium")
+        assertTrue(post.title.equals("CCM Concert"))
+        assertTrue(post.description.equals("In Corbet Auditorium"))
+    }
 }
