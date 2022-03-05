@@ -22,5 +22,22 @@ class UniConnectUnitTest {
         var post = Post("CCM Concert", "In Corbet Auditorium")
         assertTrue(post.toString().equals("CCM Concert - In Corbet Auditorium"))
     }
+    @Test
+    fun `Given a viewModel with live data when populated with univeristies results should show University Of Cincinnati`(){
+        viewModelInitializedWithMockData()
+        jsonDataIsParasedAndRead()
+        thenResultsShouldContainUOfCinci()
+    }
+
+    private fun viewModelInitializedWithMockData() {
+    }
+
+    private fun jsonDataIsParasedAndRead() {
+        TODO("Not yet implemented")
+    }
+
+    private fun thenResultsShouldContainUOfCinci() {
+        TODO("Not yet implemented")
+    }
 
 }
