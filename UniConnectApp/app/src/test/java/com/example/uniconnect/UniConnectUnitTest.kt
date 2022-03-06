@@ -19,10 +19,10 @@ import java.util.concurrent.TimeUnit
  */
 class UniConnectUnitTest {
 
-    lateinit var mvm : MainViewModel
+    //lateinit var mvm : MainViewModel
 
-    @MockK
-    lateinit var mockUniService : UniversityService
+    //@MockK
+    //lateinit var mockUniService : UniversityService
 
     @Test
     fun `Given a post DTO when title is CCM Concert and description is In Corbet Auditorium `(){
@@ -35,7 +35,17 @@ class UniConnectUnitTest {
         var post = Post("CCM Concert", "In Corbet Auditorium")
         assertTrue(post.toString().equals("CCM Concert - In Corbet Auditorium"))
     }
+
     @Test
+    fun `Given a University DTO when name is MaryWood University and country is United States`(){
+        var university = University("MaryWood University", "United States", "US")
+        assertTrue(university.name.equals("MaryWood University"))
+        assertTrue(university.country.equals("United States"))
+    }
+
+
+
+    /*@Test
     fun `Given a viewModel with live data when populated with univeristies results should show University Of Cincinnati`(){
         viewModelInitializedWithMockData()
         jsonDataIsParasedAndRead()
@@ -71,6 +81,6 @@ class UniConnectUnitTest {
         latch.await(1, TimeUnit.SECONDS)
         assertNotNull(allUni)
         assertTrue(allUni!!.contains(University("University of Cincinnati", "United States", "US")))
-    }
+    }*/
 
 }
