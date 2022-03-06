@@ -3,6 +3,8 @@ package com.example.uniconnect
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
+import com.example.uniconnect.service.IUniversityService
+import com.example.uniconnect.service.UniversityService
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,7 +53,7 @@ class UniConnectUnitTest {
 
     @Test
     fun `Given a post DTO when title is CCM Concert and description is In Corbet Auditorium `(){
-        var post = Post("CCM Concert", "In Corbet Auditorium")
+        val post = Post("CCM Concert", "In Corbet Auditorium")
         assertTrue(post.title.equals("CCM Concert"))
         assertTrue(post.description.equals("In Corbet Auditorium"))
     }
