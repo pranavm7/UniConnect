@@ -1,5 +1,6 @@
 ![UniConnect Logo](https://github.com/pranavm7/UniConnect/blob/23664bbb8b06340709c1fec4d7a658b51937d87f/readmeAssets/UniConnect.png)
 # UniConnect
+> CircleCI Status: [![CircleCI](https://circleci.com/gh/pranavm7/UniConnect/tree/main.svg?style=svg&circle-token=2897cd210ec47ef1c90338f0f97f77e7730112e5)](https://circleci.com/gh/pranavm7/UniConnect/tree/main)
 
 ## Introduction
 
