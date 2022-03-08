@@ -1,4 +1,4 @@
-package com.example.uniconnect.service
+package com.example.uniconnect.dao
 
 import com.example.uniconnect.dto.University
 
@@ -8,5 +8,7 @@ interface IUniversityService {
      *
      * @return Returns a list of universities
      */
+    //Saw this in the service folder. So I moved the file here. Will this be used in the future?
+    //If not just remove it as it seems like IUniversityDAO got you covered
     suspend fun fetchUniversities(): List<University>?
 }
