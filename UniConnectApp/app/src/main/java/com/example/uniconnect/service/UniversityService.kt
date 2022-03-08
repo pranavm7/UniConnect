@@ -11,8 +11,9 @@ import retrofit2.awaitResponse
 class UniversityService : IUniversityService {
     override suspend fun fetchUniversities(): List<University>? {
         return withContext(Dispatchers.IO) {
-            val retrofit = RetrofitClientInstance.retrofitInstance?.create(IUniversityDAO::class.java)
-            val universities = async { retrofit?.getAllUniversities()}
+            val retrofit =
+                RetrofitClientInstance.retrofitInstance?.create(IUniversityDAO::class.java)
+            val universities = async { retrofit?.getAllUniversities() }
             val result = universities.await()?.awaitResponse()?.body()
             return@withContext result
         }

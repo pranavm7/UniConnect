@@ -11,5 +11,5 @@ interface IUniversityDAO {
      * @return List of universities
      */
     @GET("/search")
-    fun getAllUniversities() : Call<ArrayList<University>>
+    fun getAllUniversities(): Call<ArrayList<University>>
 }
