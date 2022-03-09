@@ -27,7 +27,7 @@ import org.junit.rules.TestRule
 class UniConnectUnitTest {
 
     //lateinit var mvm : MainViewModel
-
+//
     //@MockK
     //lateinit var mockUniService : UniversityService
 
