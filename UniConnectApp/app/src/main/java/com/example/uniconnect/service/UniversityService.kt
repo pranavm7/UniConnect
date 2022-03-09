@@ -8,6 +8,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 
+interface IUniversityService {
+    suspend fun fetchUniversities(): List<University>?
+
+}
+
 class UniversityService : IUniversityService {
     override suspend fun fetchUniversities(): List<University>? {
         return withContext(Dispatchers.IO) {
