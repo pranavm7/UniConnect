@@ -2,6 +2,7 @@ package com.example.uniconnect.service
 
 import com.example.uniconnect.RetrofitClientInstance
 import com.example.uniconnect.dao.IUniversityDAO
+import com.example.uniconnect.dao.IUniversityService
 import com.example.uniconnect.dto.University
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

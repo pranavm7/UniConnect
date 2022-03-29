@@ -3,7 +3,7 @@ package com.example.uniconnect
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
-import com.example.uniconnect.service.IUniversityService
+import com.example.uniconnect.dao.IUniversityService
 import com.example.uniconnect.service.UniversityService
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +18,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -29,7 +27,7 @@ import java.util.concurrent.TimeUnit
 class UniConnectUnitTest {
 
     //lateinit var mvm : MainViewModel
-
+//
     //@MockK
     //lateinit var mockUniService : UniversityService
 
@@ -37,8 +35,8 @@ class UniConnectUnitTest {
     var rule: TestRule = InstantTaskExecutorRule()
     lateinit var universityService: IUniversityService
     var allUniversities : List<University>? = ArrayList<University>()
-
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    val thread = "UI thread"
+    private val mainThreadSurrogate = newSingleThreadContext(thread)
 
     @Before
     fun populateUniversities() {
@@ -73,22 +71,30 @@ class UniConnectUnitTest {
     @Test
     fun `Given service connects to University JSON stream when data are read and parsed then university collection should be greater than zero`() =
         runTest {
-        launch(Dispatchers.Main) {
+
+            //Removed the dispatchers IO that was here as it was doing the same in your service folder.
+            //Seems like it still runs great
+            //I am going to add the paths the program does on this as a example of documentation for debug in the future
             givenUniversityServiceIsInitialized()
             whenServiceDataAreReadAndParsed()
             thenTheUniversityCollectionSizeShouldBeGreaterThanZero()
-        }
+
     }
 
     private fun givenUniversityServiceIsInitialized() {
+        //universityService it now represents the service/UniversityService Class in the service folder
         universityService = UniversityService()
     }
 
     private suspend fun whenServiceDataAreReadAndParsed() {
+        //What this does is it goes to UniversityService with RetrofitClientService
+        //starts up the dao/IUniversityDAO and takes JSON data in the dto/University class and returns it to service/UniversityService
+        //gets the return of the list in all universities
         allUniversities = universityService.fetchUniversities()
     }
 
     private fun thenTheUniversityCollectionSizeShouldBeGreaterThanZero() {
+        //Checks that the list did not return null.
         assertNotNull(allUniversities)
         assertTrue(allUniversities!!.isNotEmpty())
     }
