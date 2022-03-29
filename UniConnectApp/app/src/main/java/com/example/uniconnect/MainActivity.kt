@@ -39,6 +39,11 @@ fun PostDetails(name: String) {
             onValueChange = {title = it},
             label = { Text(stringResource(R.string.title))}
         )
+        OutlinedTextField(
+            value = description,
+            onValueChange = {description =it},
+            label = { Text(stringResource(R.string.description))}
+        )
 
 
 
