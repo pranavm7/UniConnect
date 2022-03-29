@@ -1,6 +1,8 @@
 package com.example.uniconnect
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -44,9 +46,11 @@ fun PostDetails(name: String) {
             onValueChange = {description =it},
             label = { Text(stringResource(R.string.description))}
         )
-
-
-
+        Button(
+            onClick = {
+                Toast.makeText(context, "$title $description")
+            }
+        )
     }
 }
 
