@@ -63,6 +63,11 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it")}
     }
 
-
+    fun fetchUniversities() {
+        viewModelScope.launch {
+            var innerUniversities = universityService.fetchUniversities()
+            universities.postValue(innerUniversities)
+        }
+    }
 
 }
