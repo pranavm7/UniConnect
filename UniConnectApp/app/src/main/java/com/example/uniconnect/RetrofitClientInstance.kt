@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClientInstance {
     private var retrofit: Retrofit? = null
-    private val BASE_URL = "http://universities.hipolabs.com/"
+    private val BASE_URL = "http://universities.hipolabs.com/search"
 
     val retrofitInstance : Retrofit?
         get() {

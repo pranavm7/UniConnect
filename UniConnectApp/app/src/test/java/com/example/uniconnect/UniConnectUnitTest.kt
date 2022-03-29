@@ -1,10 +1,13 @@
 package com.example.uniconnect
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
 import com.example.uniconnect.service.IUniversityService
 import com.example.uniconnect.service.UniversityService
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,10 +31,10 @@ import java.util.concurrent.TimeUnit
  */
 class UniConnectUnitTest {
 
-    //lateinit var mvm : MainViewModel
+    lateinit var mvm : MainViewModel
 
-    //@MockK
-    //lateinit var mockUniService : UniversityService
+    @MockK
+    lateinit var mockUniService : UniversityService
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -93,7 +96,7 @@ class UniConnectUnitTest {
         assertTrue(allUniversities!!.isNotEmpty())
     }
 
-    /*@Test
+    @Test
     fun `Given a viewModel with live data when populated with univeristies results should show University Of Cincinnati`(){
         viewModelInitializedWithMockData()
         jsonDataIsParasedAndRead()
@@ -129,6 +132,6 @@ class UniConnectUnitTest {
         latch.await(1, TimeUnit.SECONDS)
         assertNotNull(allUni)
         assertTrue(allUni!!.contains(University("University of Cincinnati", "United States", "US")))
-    }*/
+    }
 
 }
