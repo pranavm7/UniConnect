@@ -21,6 +21,12 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToPost()
     }
+    fun fetchUniversities() {
+        viewModelScope.launch {
+            var innerUniversities = universityService.fetchUniversities()
+            universities.postValue(innerUniversities)
+        }
+    }
 
     fun listenToPost() {
         firestore.collection("posts").addSnapshotListener {
@@ -63,11 +69,6 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it")}
     }
 
-    fun fetchUniversities() {
-        viewModelScope.launch {
-            var innerUniversities = universityService.fetchUniversities()
-            universities.postValue(innerUniversities)
-        }
-    }
+
 
 }
