@@ -1,10 +1,14 @@
 package com.example.uniconnect
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
 import com.example.uniconnect.service.IUniversityService
 import com.example.uniconnect.service.UniversityService
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,20 +32,22 @@ import java.util.concurrent.TimeUnit
  */
 class UniConnectUnitTest {
 
-    //lateinit var mvm : MainViewModel
-
-    //@MockK
-    //lateinit var mockUniService : UniversityService
-
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
+
+    lateinit var mvm : MainViewModel
+    private val mainThreadSurrogate = newSingleThreadContext("Main thread")
+
+    @MockK
+    lateinit var mockUniService : UniversityService
+
+
     lateinit var universityService: IUniversityService
     var allUniversities : List<University>? = ArrayList<University>()
 
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
     @Before
     fun populateUniversities() {
+        MockKAnnotations.init(this)
         Dispatchers.setMain(mainThreadSurrogate)
     }
 
@@ -93,42 +99,6 @@ class UniConnectUnitTest {
         assertTrue(allUniversities!!.isNotEmpty())
     }
 
-    /*@Test
-    fun `Given a viewModel with live data when populated with univeristies results should show University Of Cincinnati`(){
-        viewModelInitializedWithMockData()
-        jsonDataIsParasedAndRead()
-        thenResultsShouldContainUOfCinci()
-    }
 
-    private fun viewModelInitializedWithMockData() {
-        val universities = ArrayList<University>()
-        universities.add(University("University of Cincinnati", "United States", "US"))
-        universities.add(University("Xavier University", "United States", "US"))
-        universities.add(University("University of Cambridge", "United Kingdom", "GB"))
-
-        coEvery{ mockUniService.fetchUniversities()} returns universities
-        mvm.universityService = mockUniService
-    }
-
-    private fun jsonDataIsParasedAndRead() {
-        mvm.fetchUniversities()
-    }
-
-    private fun thenResultsShouldContainUOfCinci() {
-        var allUni : List<University>? = ArrayList<University>()
-        val latch = CountDownLatch(1);
-        val observer = object : Observer<List<University>> {
-            override fun onChanged(x: List<University>?) {
-                allUni = x
-                latch.countDown()
-                mvm.universities.removeObserver(this)
-            }
-        }
-        mvm.universities.observeForever(observer)
-
-        latch.await(1, TimeUnit.SECONDS)
-        assertNotNull(allUni)
-        assertTrue(allUni!!.contains(University("University of Cincinnati", "United States", "US")))
-    }*/
 
 }
