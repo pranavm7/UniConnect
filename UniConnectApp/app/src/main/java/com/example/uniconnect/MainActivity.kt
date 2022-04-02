@@ -13,9 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.uniconnect.dto.Post
 import com.example.uniconnect.ui.theme.UniConnectTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: MainViewModel by viewModel<MainViewModel>()
+    private var inTitle : String = ""
+    private var inDescription : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,6 +39,7 @@ class MainActivity : ComponentActivity() {
 fun PostDetails(name: String) {
     var title by remember {mutableStateOf("")}
     var description by remember { mutableStateOf("")}
+    var postID by remember { mutableStateOf("")}
     val context = LocalContext.current
     Column{
         OutlinedTextField(
@@ -47,7 +54,13 @@ fun PostDetails(name: String) {
         )
         Button(
             onClick = {
-                Toast.makeText(context, "$title, $description", Toast.LENGTH_LONG).show()
+                var post = Post().apply{
+                    title = title
+                    description = description
+                    postID = postID
+                }
+                //SavePost function goes here 
+                Toast.makeText(context, "$postID, $title, $description", Toast.LENGTH_LONG).show()
         }
             ){Text(text = "Post")}
     }
