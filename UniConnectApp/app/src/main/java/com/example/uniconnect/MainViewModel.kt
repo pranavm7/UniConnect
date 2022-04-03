@@ -3,20 +3,29 @@ package com.example.uniconnect
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.uniconnect.dto.Post
+import com.example.uniconnect.dto.University
 import com.example.uniconnect.service.IUniversityService
 import com.example.uniconnect.service.UniversityService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import kotlinx.coroutines.launch
 
 class MainViewModel(var universityService: IUniversityService = UniversityService()) : ViewModel() {
+    val universities: MutableLiveData<List<University>> = MutableLiveData<List<University>>()
     val posts: MutableLiveData<List<Post>> = MutableLiveData<List<Post>>()
-
     private var firestore : FirebaseFirestore = FirebaseFirestore.getInstance()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToPost()
+    }
+    fun fetchUniversities() {
+        viewModelScope.launch {
+            var innerUniversities = universityService.fetchUniversities()
+            universities.postValue(innerUniversities)
+        }
     }
 
     fun listenToPost() {
@@ -59,4 +68,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         handle.addOnSuccessListener { Log.d("Firebase", "document saved") }
         handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it")}
     }
+
+
+
 }
