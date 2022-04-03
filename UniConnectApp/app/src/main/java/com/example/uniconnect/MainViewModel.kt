@@ -69,6 +69,9 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it")}
     }
 
-
+    fun deletePost (post: Post) {
+        var postCollection = firestore.collection("posts").document(post.postId)
+        postCollection.delete()
+    }
 
 }

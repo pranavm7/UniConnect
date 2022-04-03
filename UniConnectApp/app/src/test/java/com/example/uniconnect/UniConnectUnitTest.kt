@@ -36,6 +36,7 @@ class UniConnectUnitTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     lateinit var mvm : MainViewModel
+
     private val mainThreadSurrogate = newSingleThreadContext("Main thread")
 
     @MockK
