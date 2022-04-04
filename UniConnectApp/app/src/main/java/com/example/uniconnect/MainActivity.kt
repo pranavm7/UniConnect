@@ -90,8 +90,11 @@ class MainActivity : ComponentActivity() {
 
 
     private val signInLauncher =
-        registerForActivityResult(FirebaseAuthUIActivityResultContract())
-        { res -> this.signInResult(res)}
+        registerForActivityResult(
+            FirebaseAuthUIActivityResultContract()
+        ) {
+                res -> this.signInResult(res)
+        }
 
     private fun signInResult(result: FirebaseAuthUIAuthenticationResult) {
         val response = result.idpResponse
