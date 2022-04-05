@@ -94,5 +94,4 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
                 .addOnFailureListener { Log.d("Firebase", "Error Deleting Post ${it.message}") }
         }
     }
-
 }
