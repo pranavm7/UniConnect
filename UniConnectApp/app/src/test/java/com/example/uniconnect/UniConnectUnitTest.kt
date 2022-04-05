@@ -77,29 +77,6 @@ class UniConnectUnitTest {
         assertTrue(university.country.equals("United States"))
     }
 
-    @Test
-    fun `Given service connects to University JSON stream when data are read and parsed then university collection should be greater than zero`() =
-        runTest {
-        launch(Dispatchers.Main) {
-            givenUniversityServiceIsInitialized()
-            whenServiceDataAreReadAndParsed()
-            thenTheUniversityCollectionSizeShouldBeGreaterThanZero()
-        }
-    }
-
-    private fun givenUniversityServiceIsInitialized() {
-        universityService = UniversityService()
-    }
-
-    private suspend fun whenServiceDataAreReadAndParsed() {
-        allUniversities = universityService.fetchUniversities()
-    }
-
-    private fun thenTheUniversityCollectionSizeShouldBeGreaterThanZero() {
-        assertNotNull(allUniversities)
-        assertTrue(allUniversities!!.isNotEmpty())
-    }
-
 
 
 }
