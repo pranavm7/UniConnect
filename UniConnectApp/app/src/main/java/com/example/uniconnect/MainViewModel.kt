@@ -85,6 +85,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
 
         }
     }
+
     fun deletePost(post: Post) {
         user?.let { user ->
             val doc = firestore.collection("users").document(user.uid).collection("posts")
