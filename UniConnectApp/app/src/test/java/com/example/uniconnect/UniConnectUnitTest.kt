@@ -1,13 +1,11 @@
 package com.example.uniconnect
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
-import com.example.uniconnect.service.IUniversityService
+import com.example.uniconnect.dao.IUniversityService
 import com.example.uniconnect.service.UniversityService
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +20,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 /**
  * Example local unit test, which will execute on the development machine (host).

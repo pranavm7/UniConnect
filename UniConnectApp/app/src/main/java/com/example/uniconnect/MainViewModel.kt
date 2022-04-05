@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
 import com.example.uniconnect.dto.User
-import com.example.uniconnect.service.IUniversityService
+import com.example.uniconnect.dao.IUniversityService
 import com.example.uniconnect.service.UniversityService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings

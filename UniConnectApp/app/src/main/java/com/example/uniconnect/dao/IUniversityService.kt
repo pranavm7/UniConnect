@@ -1,4 +1,4 @@
-package com.example.uniconnect.service
+package com.example.uniconnect.dao
 
 import com.example.uniconnect.dto.University
 
