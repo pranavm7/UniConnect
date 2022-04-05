@@ -2,7 +2,6 @@ package com.example.uniconnect
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
 import com.example.uniconnect.service.IUniversityService
 import com.example.uniconnect.service.UniversityService
@@ -11,10 +10,8 @@ import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import org.junit.Test
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 
@@ -42,10 +39,6 @@ class UniConnectUnitTest {
     @MockK
     lateinit var mockUniService : UniversityService
 
-
-    lateinit var universityService: IUniversityService
-    var allUniversities : List<University>? = ArrayList<University>()
-
     @Before
     fun populateUniversities() {
         MockKAnnotations.init(this)
@@ -59,24 +52,47 @@ class UniConnectUnitTest {
     }
 
     @Test
-    fun `Given a post DTO when title is CCM Concert and description is In Corbet Auditorium `(){
-        val post = Post("","CCM Concert", "In Corbet Auditorium")
-        assertTrue(post.title.equals("CCM Concert"))
-        assertTrue(post.description.equals("In Corbet Auditorium"))
-    }
-    @Test
-    fun `Given a post DTO when  title is CCM Concert and description is In Corbet Auditorium then output is CCM Concert - In Corbet Auditorium`(){
-        val post = Post("","CCM Concert", "In Corbet Auditorium")
-        assertTrue(post.toString().equals("CCM Concert - In Corbet Auditorium"))
+    fun `given a view model with live data when populated with universities then results show UC` () {
+        givenViewModelIsInitializedWithMockData()
+        whenUniversityServiceFetchUniversitiesInvoked()
+        thenResultsShouldContainUC()
     }
 
-    @Test
-    fun `Given a University DTO when name is MaryWood University and country is United States`(){
-        val university = University("MaryWood University", "United States", "US")
-        assertTrue(university.name.equals("MaryWood University"))
-        assertTrue(university.country.equals("United States"))
+    private fun givenViewModelIsInitializedWithMockData() {
+        val universities = ArrayList<University>()
+        universities.add(University("Marywood University", "United States", "US"))
+        universities.add(University("University of Cincinnati", "United States", "US"))
+        universities.add(University("University of Petroleum and Energy Studies", "India", "IN"))
+
+        coEvery { mockUniService.fetchUniversities() } returns universities
+
+        mvm = MainViewModel(universityService = mockUniService)
     }
 
+    private fun whenUniversityServiceFetchUniversitiesInvoked() {
+        mvm.fetchUniversities()
+    }
 
-
+    private fun thenResultsShouldContainUC() {
+        var allUniversities : List<University>? = ArrayList()
+        val latch = CountDownLatch(1)
+        val observer = object : Observer<List<University>> {
+            override fun onChanged(receivedUniversities: List<University>?) {
+                allUniversities = receivedUniversities
+                latch.countDown()
+                mvm.universities.removeObserver(this)
+            }
+        }
+        mvm.universities.observeForever(observer)
+        latch.await(10, TimeUnit.SECONDS)
+        assertNotNull(allUniversities)
+        assertTrue(allUniversities!!.isNotEmpty())
+        var containsUniversityCincinnati = false
+        allUniversities!!.forEach {
+            if (it.name == "University of Cincinnati" && it.country.equals("United States")) {
+                containsUniversityCincinnati = true
+            }
+        }
+        assertTrue(containsUniversityCincinnati)
+    }
 }
