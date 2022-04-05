@@ -17,12 +17,13 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
     var user: User? = null
     val universities: MutableLiveData<List<University>> = MutableLiveData<List<University>>()
     val postsOfCurrentUser: MutableLiveData<List<Post>> = MutableLiveData<List<Post>>()
-    private var firestore : FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToThisUserPost()
     }
+
     fun fetchUniversities() {
         viewModelScope.launch {
             val innerUniversities = universityService.fetchUniversities()
@@ -32,7 +33,8 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
 
     fun listenToThisUserPost() {
         user?.let { user ->
-            firestore.collection("users").document(user.uid).collection("posts").addSnapshotListener { snapshot, error ->
+            firestore.collection("users").document(user.uid).collection("posts")
+                .addSnapshotListener { snapshot, error ->
                 // see of we received an error
                 if (error != null) {
                     Log.w("listen failed.", error)
@@ -58,7 +60,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         }
     }
 
-    fun savePost (post: Post) {
+    fun savePost(post: Post) {
         user?.let { user ->
             val doc = if (post.postId == "" || post.postId.isEmpty()) {
                 // insert
@@ -83,9 +85,10 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
 
         }
     }
-    fun deletePost (post: Post) {
+    fun deletePost(post: Post) {
         user?.let { user ->
-            val doc = firestore.collection("users").document(user.uid).collection("posts").document(post.postId)
+            val doc = firestore.collection("users").document(user.uid).collection("posts")
+                .document(post.postId)
             doc.delete()
                 .addOnSuccessListener { Log.d("Firebase", "Post Deleted") }
                 .addOnFailureListener { Log.d("Firebase", "Error Deleting Post ${it.message}") }
