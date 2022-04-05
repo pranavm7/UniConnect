@@ -33,7 +33,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
     fun listenToThisUserPost() {
         user?.let { user ->
             firestore.collection("users").document(user.uid).collection("posts").addSnapshotListener { snapshot, error ->
-                // see of we received an error
+                // see if we received an error
                 if (error != null) {
                     Log.w("listen failed.", error)
                     return@addSnapshotListener
