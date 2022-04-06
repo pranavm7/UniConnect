@@ -2,10 +2,11 @@ package com.example.uniconnect
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.User
 import com.example.uniconnect.ui.theme.UniConnectTheme
@@ -57,28 +59,76 @@ class MainActivity : ComponentActivity() {
         var description by remember { mutableStateOf("")}
         //var postID by remember { mutableStateOf("")}
         val context = LocalContext.current
-        Column{
-            OutlinedTextField(
-                value = title,
-                onValueChange = {title = it},
-                label = { Text(stringResource(R.string.title))}
+        Column(
+            Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = stringResource(id = R.string.post_title),
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(start = 20.dp)
             )
-            OutlinedTextField(
-                value = description,
-                onValueChange = {description =it},
-                label = { Text(stringResource(R.string.description))}
-            )
-            Button(
-                onClick = {
-                    var post = Post(title = title, description = description)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(130.dp)
+                    .padding(horizontal = 30.dp),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OutlinedTextField(
+                    value = title,
+                    onValueChange = {title = it},
+                    label = { Text(stringResource(R.string.title))},
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier
 
-                    viewModel.savePost(post)
-                    //Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
+                        .fillMaxWidth()
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(500.dp)
+                    .padding(horizontal = 30.dp),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = {description = it},
+                    label = { Text(stringResource(R.string.description))},
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 30.dp, horizontal = 30.dp)
+            ){
+                Button(
+                    onClick = {
+                        var post = Post(title = title, description = description)
+
+                        viewModel.savePost(post)
+                        Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
+                    },
+                    shape = RoundedCornerShape(20.dp)
+                ){
+                    Text(text = "Post", Modifier.padding(start = 10.dp))
                 }
-            ){Text(text = "Post")}
-            Button (onClick = { signOn() })
-                { Text(text = "Logon") }
+
+                Button (onClick = {
+                    signOn()
+                },
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(text = "Logon", Modifier.padding(start = 10.dp))
+                }
+            }
         }
+
     }
 
     private fun signOn() {
