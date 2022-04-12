@@ -46,16 +46,23 @@ class ListPostModel :ViewModel() {
                                     post?.let {
                                         var postUser = user.displayName?.let { it1 -> PostUserVM(uid = user.uid, displayName = it1, postId = post.postId, title = post.title, description = post.description ) }
                                         if (postUser != null) {
+                                            var isAdded : Boolean = false
+                                            postUsers.forEach {
+                                                if (it.postId == postUser.postId) {
+                                                    isAdded = true
+                                                }
+                                            }
+                                            if (!isAdded) {
                                                 postUsers.add(postUser)
                                             }
                                         }
-                                        var newPostUsers = ArrayList<PostUserVM>()
-                                        postUsers.forEach {
-                                            newPostUsers.add(it)
-                                        }
-                                        // we have a populated collection of posts with user data.
-                                        allPostsAllUsers.value = newPostUsers
                                     }
+                                    var newPostUsers = ArrayList<PostUserVM>()
+                                    postUsers.forEach {
+                                        newPostUsers.add(it)
+                                    }
+                                    // we have a populated collection of posts with user data.
+                                    allPostsAllUsers.value = newPostUsers
                                 }
                             }
                         }
@@ -63,4 +70,5 @@ class ListPostModel :ViewModel() {
                 }
             }
         }
+    }
 }
