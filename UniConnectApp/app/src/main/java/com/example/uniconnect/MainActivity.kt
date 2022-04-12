@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
+import com.example.uniconnect.dto.Photo
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.User
 import com.example.uniconnect.ui.theme.UniConnectTheme
@@ -167,6 +168,8 @@ class MainActivity : ComponentActivity() {
         if (success){
             Log.i(TAG, "Image Location: $uri")
             strUri = uri.toString()
+            val photo = Photo(localUri = uri.toString())
+            viewModel.photos.add(photo)
         }else{
             Log.i(TAG, "Image not saved. $uri")
         }
