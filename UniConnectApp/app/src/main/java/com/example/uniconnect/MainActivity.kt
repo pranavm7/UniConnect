@@ -1,11 +1,17 @@
 package com.example.uniconnect
 
+import android.Manifest
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -13,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.User
 import com.example.uniconnect.ui.theme.UniConnectTheme
@@ -22,6 +30,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModel<MainViewModel>()
@@ -57,29 +66,71 @@ class MainActivity : ComponentActivity() {
         var description by remember { mutableStateOf("")}
         //var postID by remember { mutableStateOf("")}
         val context = LocalContext.current
-        Column{
+        Column {
             OutlinedTextField(
                 value = title,
-                onValueChange = {title = it},
-                label = { Text(stringResource(R.string.title))}
+                onValueChange = { title = it },
+                label = { Text(stringResource(R.string.title)) }
             )
             OutlinedTextField(
                 value = description,
-                onValueChange = {description =it},
-                label = { Text(stringResource(R.string.description))}
+                onValueChange = { description = it },
+                label = { Text(stringResource(R.string.description)) }
             )
-            Button(
-                onClick = {
-                    var post = Post(title = title, description = description)
+            Row(modifier = Modifier.padding(all = 2.dp)) {
 
-                    viewModel.savePost(post)
-                    //Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
-                }
-            ){Text(text = "Post")}
-            Button (onClick = { signOn() })
+
+                Button(
+                    onClick = {
+                        var post = Post(title = title, description = description)
+
+                        viewModel.savePost(post)
+                        //Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
+                    }
+                ) { Text(text = "Post") }
+                Button(onClick = { signOn() })
                 { Text(text = "Logon") }
+                Button(onClick = { takePhoto() })
+                { Text(text = "Photo") }
+            }
         }
     }
+
+    private fun takePhoto() {
+        if(hasCameraPermission() == PERMISSION_GRANTED && hasExternalStoragePermission() == PERMISSION_GRANTED){
+            invokeCamera()
+        }else{
+            requestMultiplePermissionsLauncher.launch(arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+            ))
+        }
+    }
+
+    private val requestMultiplePermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
+        resultsMap ->
+        var permissionGranted = false
+        resultsMap.forEach{
+            if (it.value == true){
+                permissionGranted = it.value
+            }else{
+                permissionGranted = false
+                return@forEach
+            }
+        }
+        if(permissionGranted){
+            invokeCamera()
+        }else{
+            Toast.makeText(this,getString(R.string.cameraPermissionDenied), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun invokeCamera() {
+        var i = 1+1
+    }
+
+    fun hasCameraPermission() = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+    fun hasExternalStoragePermission() = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     private fun signOn() {
         val providers = arrayListOf(
