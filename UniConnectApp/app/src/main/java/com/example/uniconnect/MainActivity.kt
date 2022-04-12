@@ -25,8 +25,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModel<MainViewModel>()
-    //private var inTitle : String = ""
-    //private var inDescription : String = ""
+
 
 
     private var firebaseUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
@@ -34,7 +33,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //viewModel.fetchUniversities()
             firebaseUser?.let {
                 val user = User(it.uid, "")
                 viewModel.user = user
@@ -55,7 +53,6 @@ class MainActivity : ComponentActivity() {
     fun PostDetails(name: String) {
         var title by remember () {mutableStateOf("")}
         var description by remember { mutableStateOf("")}
-        //var postID by remember { mutableStateOf("")}
         val context = LocalContext.current
         Column{
             OutlinedTextField(
@@ -73,7 +70,6 @@ class MainActivity : ComponentActivity() {
                     var post = Post(title = title, description = description)
 
                     viewModel.savePost(post)
-                    //Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
                 }
             ){Text(text = "Post")}
             Button (onClick = { signOn() })
@@ -94,8 +90,11 @@ class MainActivity : ComponentActivity() {
 
 
     private val signInLauncher =
-        registerForActivityResult(FirebaseAuthUIActivityResultContract())
-        { res -> this.signInResult(res)}
+        registerForActivityResult(
+            FirebaseAuthUIActivityResultContract()
+        ) {
+                res -> this.signInResult(res)
+        }
 
     private fun signInResult(result: FirebaseAuthUIAuthenticationResult) {
         val response = result.idpResponse
