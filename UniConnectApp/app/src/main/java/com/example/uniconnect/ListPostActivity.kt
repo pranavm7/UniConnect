@@ -19,46 +19,46 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import com.example.uniconnect.dto.PostUserVM
+import com.example.uniconnect.dto.User
 
 
 data class ListItem(val name: String)
 
 class ListPostActivity : ComponentActivity() {
+
+    private val listPostModel: ListPostModel = ListPostModel()
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             UniConnectTheme {
+                val allPostsAllUsers by listPostModel.allPostsAllUsers.observeAsState(initial = emptyList())
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MessageList(messages = listItems)
+
+                    MessageList(allPostsAllUsers)
                 }
             }
         }
     }
 
-    private val listItems: List<ListItem> = listOf(
-        ListItem("Jayme"),
-        ListItem("Gil"),
-        ListItem("Juice WRLD"),
-        ListItem("Callan"),
-        ListItem("Braxton"),
-        ListItem("Kyla"),
-        ListItem("Lil Mosey"),
-        ListItem("Allan"),
-        ListItem("Mike"),
-        ListItem("Drew"),
-        ListItem("Nia"),
-        ListItem("Coi Relayss")
-    )
-
     @Composable
-    fun MessageList(messages: List<ListItem>) {
+    fun MessageList(allPostsAllUsers: List<PostUserVM> = ArrayList<PostUserVM>()) {
+        var newMessages = ArrayList<ListItem>()
+        allPostsAllUsers.forEach { it ->
+            newMessages.add(ListItem(name = it.title))
+        }
         LazyColumn {
-            items(messages) { message ->
-                ListItem(message)
+            items(newMessages) { item ->
+                DisplayItem(item)
             }
         }
     }
@@ -79,7 +79,7 @@ class ListPostActivity : ComponentActivity() {
     }*/
 
     @Composable
-    fun ListItem(item: ListItem) {
+    fun DisplayItem(item: ListItem) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
