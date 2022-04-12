@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import coil.compose.AsyncImage
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.User
 import com.example.uniconnect.ui.theme.UniConnectTheme
@@ -45,6 +46,7 @@ class MainActivity : ComponentActivity() {
     private var uri: Uri? = null
     private lateinit var currentImagePath: String
     private val viewModel: MainViewModel by viewModel<MainViewModel>()
+    private var strUri by mutableStateOf("")
     //private var inTitle : String = ""
     //private var inDescription : String = ""
 
@@ -75,8 +77,8 @@ class MainActivity : ComponentActivity() {
     fun PostDetails(name: String) {
         var title by remember () {mutableStateOf("")}
         var description by remember { mutableStateOf("")}
-        //var postID by remember { mutableStateOf("")}
         val context = LocalContext.current
+
         Column {
             OutlinedTextField(
                 value = title,
@@ -104,6 +106,7 @@ class MainActivity : ComponentActivity() {
                 Button(onClick = { takePhoto() })
                 { Text(text = "Photo") }
             }
+            AsyncImage(model = strUri, contentDescription= "Description Image")
         }
     }
 
@@ -163,6 +166,7 @@ class MainActivity : ComponentActivity() {
         success ->
         if (success){
             Log.i(TAG, "Image Location: $uri")
+            strUri = uri.toString()
         }else{
             Log.i(TAG, "Image not saved. $uri")
         }
