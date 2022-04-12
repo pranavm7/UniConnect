@@ -1,8 +1,12 @@
 package com.example.uniconnect
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -21,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.User
 import com.example.uniconnect.ui.theme.UniConnectTheme
@@ -30,9 +35,15 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import java.io.File
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : ComponentActivity() {
+    private var uri: Uri? = null
+    private lateinit var currentImagePath: String
     private val viewModel: MainViewModel by viewModel<MainViewModel>()
     //private var inTitle : String = ""
     //private var inDescription : String = ""
@@ -126,7 +137,35 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun invokeCamera() {
-        var i = 1+1
+        val file = createImageFile()
+        try {
+            uri = FileProvider.getUriForFile(this, "com.example.uniconnect.fileprovider", file)
+        }catch (e: Exception){
+            Log.e(TAG, "Error: ${e.message}")
+            var foo = e.message
+        }
+        getCameraImage.launch(uri)
+    }
+
+    private fun createImageFile() : File {
+        val timestamp = SimpleDateFormat("yyyMMdd_HHmmss").format(Date())
+        val imageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "Specimen_${timestamp}",
+            ".jpg",
+            imageDirectory
+        ).apply{
+            currentImagePath = absolutePath
+        }
+    }
+
+    private val getCameraImage = registerForActivityResult(ActivityResultContracts.TakePicture()){
+        success ->
+        if (success){
+            Log.i(TAG, "Image Location: $uri")
+        }else{
+            Log.i(TAG, "Image not saved. $uri")
+        }
     }
 
     fun hasCameraPermission() = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
