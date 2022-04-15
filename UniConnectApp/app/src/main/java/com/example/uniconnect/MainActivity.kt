@@ -155,7 +155,7 @@ class MainActivity : ComponentActivity() {
         val timestamp = SimpleDateFormat("yyyMMdd_HHmmss").format(Date())
         val imageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            "Specimen_${timestamp}",
+            "Post_${timestamp}",
             ".jpg",
             imageDirectory
         ).apply{

@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(var universityService: IUniversityService = UniversityService()) : ViewModel() {
     val photos: ArrayList<Photo> = ArrayList<Photo>()
     var user: User? = null
-    var post by mutableStateOf(Post())
     val universities: MutableLiveData<List<University>> = MutableLiveData<List<University>>()
     val postsOfCurrentUser: MutableLiveData<List<Post>> = MutableLiveData<List<Post>>()
     private var firestore : FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -82,14 +81,14 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
             handle.addOnSuccessListener {
                 Log.d("Firebase", "document saved")
                 if(photos.isNotEmpty()){
-                    uploadPhotos()
+                    uploadPhotos(post)
                 }
             }
             handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it") }
         }
     }
 
-    private fun uploadPhotos() {
+    private fun uploadPhotos(post: Post) {
         photos.forEach{
             photo ->
             var uri = Uri.parse(photo.localUri)
@@ -101,7 +100,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
                 downloadUrl.addOnSuccessListener {
                     remoteUri ->
                     photo.remoteUri = remoteUri.toString()
-                    updatePhotoDatabase(photo)
+                    updatePhotoDatabase(photo, post)
 
                 }
             }
@@ -111,7 +110,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         }
     }
 
-    private fun updatePhotoDatabase(photo: Photo) {
+    private fun updatePhotoDatabase(photo: Photo, post: Post) {
         user?.let {
             user->
             var photoCollection = firestore.collection("users").document(user.uid).collection("posts").document(post.postId).collection("photos")
