@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import com.example.uniconnect.dto.PostUserVM
 import com.example.uniconnect.dto.User
 
@@ -52,39 +53,21 @@ class ListPostActivity : ComponentActivity() {
 
     @Composable
     fun MessageList(allPostsAllUsers: List<PostUserVM> = ArrayList<PostUserVM>()) {
-        var newMessages = ArrayList<ListItem>()
-        allPostsAllUsers.forEach { it ->
-            newMessages.add(ListItem(name = it.title))
-        }
         LazyColumn {
-            items(newMessages) { item ->
-                DisplayItem(item)
+            items(allPostsAllUsers) { post ->
+                DisplayPost(post)
             }
         }
     }
 
-    /*@Composable
-    fun DisplayList(items: List<ListItem>) {
-        val scrollState = rememberScrollState()
-        Column(Modifier.verticalScroll(scrollState)) {
-            repeat(items.size) {
-                ListItem(items[it]);
-            }
-        }
-        /*Box() {
-            items.forEach { item ->
-                ListItem(item)
-            }
-        }*/
-    }*/
 
     @Composable
-    fun DisplayItem(item: ListItem) {
+    fun DisplayPost(post: PostUserVM) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .height(60.dp)
+                .height(150.dp)
                 .background(color = Color.Gray)
         ) {
             Row(
@@ -99,14 +82,32 @@ class ListPostActivity : ComponentActivity() {
                         .padding(horizontal = 8.dp)
                         .align(CenterVertically)
                 )
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .align(CenterVertically),
-                    text = item.name,
-                    color = Color.White,
-                    fontSize = 16.sp
-                )
+                Column () {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp),
+                        text = post.title,
+                        color = Color.White,
+                        fontSize = 25.sp
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp),
+                        text = "By " + post.displayName,
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp),
+                        text = post.description,
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+
+
             }
         }
     }
