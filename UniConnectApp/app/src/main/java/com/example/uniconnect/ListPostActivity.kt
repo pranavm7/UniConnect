@@ -19,20 +19,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import com.example.uniconnect.dto.PostUserVM
-import com.example.uniconnect.dto.User
-
-
-data class ListItem(val name: String)
 
 class ListPostActivity : ComponentActivity() {
 
     private val listPostModel: ListPostModel = ListPostModel()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,22 +39,41 @@ class ListPostActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
-                    MessageList(allPostsAllUsers)
+                    HomeContent(allPostsAllUsers)
                 }
             }
         }
     }
 
     @Composable
-    fun MessageList(allPostsAllUsers: List<PostUserVM> = ArrayList<PostUserVM>()) {
-        LazyColumn {
-            items(allPostsAllUsers) { post ->
-                DisplayPost(post)
+    fun HomeContent(allPostsAllUsers: List<PostUserVM> = ArrayList<PostUserVM>()) {
+        Scaffold(
+            topBar = {
+                TopAppBar(title = { Text("Latest Posts") })
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.height(70.dp).width(70.dp),
+                    backgroundColor = Color.Red,
+                    content = {
+                        Icon(imageVector = Icons.Filled.Add,
+                            contentDescription = "",
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight())
+                    }
+                )
+            },
+            content = {
+                Surface() {
+                    LazyColumn {
+                        items(allPostsAllUsers) { post ->
+                            DisplayPost(post)
+                        }
+                    }
+                }
             }
-        }
+        )
     }
-
 
     @Composable
     fun DisplayPost(post: PostUserVM) {
@@ -79,20 +93,20 @@ class ListPostActivity : ComponentActivity() {
                     painter = painterResource(id = R.drawable.ic_launcher_foreground),
                     contentDescription = "user icon",
                     modifier = Modifier
-                        .padding(horizontal = 8.dp)
+                        .padding(horizontal = 2.dp)
                         .align(CenterVertically)
                 )
                 Column () {
                     Text(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = 8.dp),
                         text = post.title,
                         color = Color.White,
                         fontSize = 25.sp
                     )
                     Text(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = 8.dp),
                         text = "By " + post.displayName,
                         color = Color.White,
                         fontSize = 16.sp
@@ -100,14 +114,12 @@ class ListPostActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = 8.dp),
                         text = post.description,
                         color = Color.White,
                         fontSize = 16.sp
                     )
                 }
-
-
             }
         }
     }
