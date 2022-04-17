@@ -1,5 +1,6 @@
 package com.example.uniconnect
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -53,13 +54,15 @@ class ListPostActivity : ComponentActivity() {
             },
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        val intent = Intent(this, MainActivity::class.java)
+                        this.startActivity(intent)
+                    },
                     modifier = Modifier.height(70.dp).width(70.dp),
                     backgroundColor = Color.Red,
                     content = {
                         Icon(imageVector = Icons.Filled.Add,
-                            contentDescription = "",
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight())
+                            contentDescription = "")
                     }
                 )
             },

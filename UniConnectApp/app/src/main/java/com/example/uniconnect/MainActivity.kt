@@ -2,6 +2,7 @@ package com.example.uniconnect
 
 import android.Manifest
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Bundle
@@ -97,18 +98,25 @@ class MainActivity : ComponentActivity() {
                 Button(
                     onClick = {
                         var post = Post(title = title, description = description)
-
                         viewModel.savePost(post)
-                        //Toast.makeText(context, ", $title, $description", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Post Saved", Toast.LENGTH_LONG).show()
+                        launchListPostActivity()
                     }
                 ) { Text(text = "Post") }
                 Button(onClick = { signOn() })
                 { Text(text = "Logon") }
                 Button(onClick = { takePhoto() })
                 { Text(text = "Photo") }
+                Button(onClick = { launchListPostActivity() })
+                { Text(text = "Cancel") }
             }
             AsyncImage(model = strUri, contentDescription= "Description Image")
         }
+    }
+
+    private fun launchListPostActivity() {
+        val intent = Intent(this, ListPostActivity::class.java)
+        this.startActivity(intent)
     }
 
     private fun takePhoto() {
