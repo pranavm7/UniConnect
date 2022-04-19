@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.graphics.Brush
 import com.example.uniconnect.dto.PostUserVM
 
 class ListPostActivity : ComponentActivity() {
@@ -37,8 +38,8 @@ class ListPostActivity : ComponentActivity() {
                 val allPostsAllUsers by listPostModel.allPostsAllUsers.observeAsState(initial = emptyList())
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    modifier = Modifier
+                        .fillMaxSize()
                 ) {
                     HomeContent(allPostsAllUsers)
                 }
@@ -48,9 +49,11 @@ class ListPostActivity : ComponentActivity() {
 
     @Composable
     fun HomeContent(allPostsAllUsers: List<PostUserVM> = ArrayList<PostUserVM>()) {
+        val mainPink = Color(0xFFf4717f)
         Scaffold(
             topBar = {
-                TopAppBar(title = { Text("Latest Posts") })
+                TopAppBar(title = { Text("Latest Posts") },
+                backgroundColor = mainPink)
             },
             floatingActionButton = {
                 FloatingActionButton(
@@ -59,7 +62,7 @@ class ListPostActivity : ComponentActivity() {
                         this.startActivity(intent)
                     },
                     modifier = Modifier.height(70.dp).width(70.dp),
-                    backgroundColor = Color.Red,
+                    backgroundColor = mainPink,
                     content = {
                         Icon(imageVector = Icons.Filled.Add,
                             contentDescription = "")
@@ -86,10 +89,12 @@ class ListPostActivity : ComponentActivity() {
                 .padding(4.dp)
                 .height(150.dp)
                 .background(color = Color.Gray)
+
         ) {
             Row(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
+
                     .fillMaxWidth()
             ) {
                 Image(

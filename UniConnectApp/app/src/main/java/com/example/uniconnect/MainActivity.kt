@@ -14,13 +14,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -68,7 +71,18 @@ class MainActivity : ComponentActivity() {
             val universities by viewModel.universities.observeAsState(initial = emptyList())
             UniConnectTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+                Surface(modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.White,
+                                Color(0xFFf4717f)
+                            )
+                        )
+                    ),
+                    color = Color(0xFFf4717)
+                ) {
                     PostDetails("Android")
                 }
             }
@@ -81,17 +95,12 @@ class MainActivity : ComponentActivity() {
         var title by remember () {mutableStateOf("")}
         var description by remember { mutableStateOf("")}
         val context = LocalContext.current
-        Card(
-            modifier = Modifier
-                .padding(horizontal = 4.dp, vertical = 4.dp)
-                .fillMaxWidth(),
-            elevation = 8.dp,
-            backgroundColor = MaterialTheme.colors.background,
-            contentColor = contentColorFor(backgroundColor),
-            shape =  RoundedCornerShape(10.dp),
-            border = BorderStroke(1.dp, Color.Red)
-        )
-        {}
+        val mainPink = Color(0xFFf4717f)
+        val gradientBackground = Brush.verticalGradient(
+            colors = listOf(
+                Color.White,
+                mainPink
+            ))
         Column {
             OutlinedTextField(
                 value = title,
@@ -112,17 +121,20 @@ class MainActivity : ComponentActivity() {
                         viewModel.savePost(post)
                         Toast.makeText(context, "Post Saved", Toast.LENGTH_LONG).show()
                         launchListPostActivity()
-                    }
+                    }, colors = ButtonDefaults.buttonColors(backgroundColor = mainPink, contentColor = Color.White)
+
                 ) { Text(text = "Post") }
-                Button(onClick = { signOn() })
+                Button(onClick = { signOn() }
+                    , colors = ButtonDefaults.buttonColors(backgroundColor = mainPink, contentColor = Color.White))
                 { Text(text = "Logon") }
-                Button(onClick = { takePhoto() })
+                Button(onClick = { takePhoto() }, colors = ButtonDefaults.buttonColors(backgroundColor = mainPink, contentColor = Color.White))
                 { Text(text = "Photo") }
-                Button(onClick = { launchListPostActivity() })
+                Button(onClick = { launchListPostActivity() }, colors = ButtonDefaults.buttonColors(backgroundColor = mainPink, contentColor = Color.White))
                 { Text(text = "Cancel") }
             }
             AsyncImage(model = strUri, contentDescription= "Description Image")
         }
+
     }
 
     private fun launchListPostActivity() {
