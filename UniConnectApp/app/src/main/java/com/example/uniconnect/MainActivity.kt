@@ -13,14 +13,15 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -80,7 +81,17 @@ class MainActivity : ComponentActivity() {
         var title by remember () {mutableStateOf("")}
         var description by remember { mutableStateOf("")}
         val context = LocalContext.current
-
+        Card(
+            modifier = Modifier
+                .padding(horizontal = 4.dp, vertical = 4.dp)
+                .fillMaxWidth(),
+            elevation = 8.dp,
+            backgroundColor = MaterialTheme.colors.background,
+            contentColor = contentColorFor(backgroundColor),
+            shape =  RoundedCornerShape(10.dp),
+            border = BorderStroke(1.dp, Color.Red)
+        )
+        {}
         Column {
             OutlinedTextField(
                 value = title,
