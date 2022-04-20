@@ -2,4 +2,5 @@
     <string name="app_name">UniConnect</string>
     <string name="title">title</string>
     <string name="description">description</string>
+    <string name="cameraPermissionDenied">Unable to load camera without permission</string>
 </resources>

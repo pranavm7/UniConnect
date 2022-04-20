@@ -1,4 +1,5 @@
 package com.example.uniconnect.dto
 
-data class User(val uid: String = "", var displayName : String?) {
+data class User(var uid: String = "",
+                var displayName : String? = "") {
 }
