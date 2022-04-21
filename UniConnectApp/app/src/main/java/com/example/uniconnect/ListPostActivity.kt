@@ -2,10 +2,12 @@ package com.example.uniconnect
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
@@ -25,6 +27,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import com.example.uniconnect.dto.PostUserVM
 
 class ListPostActivity : ComponentActivity() {
@@ -83,19 +86,33 @@ class ListPostActivity : ComponentActivity() {
 
     @Composable
     fun DisplayPost(post: PostUserVM) {
+        val context = LocalContext.current
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
                 .height(150.dp)
-                .background(color = Color.Gray)
-
+                //.background(color = Color.Gray)
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.White,
+                            Color(0xFFf4717f)
+                        )
+                    ))
+                .clickable {
+                    //call the detail activity and pass the postID
+                    //Toast.makeText(context, "Post clicked ${post.postId}", Toast.LENGTH_LONG).show()
+                    launchPostDetailActivity(post.postId, post.uid)
+                }
         ) {
+
             Row(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
 
                     .fillMaxWidth()
+
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -130,5 +147,12 @@ class ListPostActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun launchPostDetailActivity(postId: String, uid: String) {
+        val intent = Intent(this, com.example.uniconnect.PostDetailActivity::class.java)
+        intent.putExtra("POST_ID",postId)
+        intent.putExtra("USER_ID",uid)
+        this.startActivity(intent)
     }
 }

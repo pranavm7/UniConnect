@@ -3,4 +3,5 @@
     <string name="title">title</string>
     <string name="description">description</string>
     <string name="cameraPermissionDenied">Unable to load camera without permission</string>
+    <string name="title_activity_post_detail">PostDetailActivity</string>
 </resources>

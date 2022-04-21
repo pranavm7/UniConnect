@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
 
                 Button(
                     onClick = {
-                        var post = Post(title = title, description = description)
+                        val post = Post(title = title, description = description)
                         viewModel.savePost(post)
                         Toast.makeText(context, "Post Saved", Toast.LENGTH_LONG).show()
                         launchListPostActivity()
