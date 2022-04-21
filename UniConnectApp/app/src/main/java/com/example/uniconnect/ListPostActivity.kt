@@ -73,7 +73,13 @@ class ListPostActivity : ComponentActivity() {
                 )
             },
             content = {
-                Surface() {
+                Surface(modifier = Modifier
+                    .background( brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.White,
+                            Color(0xFFf4717f)
+                        )
+                    ))) {
                     LazyColumn {
                         items(allPostsAllUsers) { post ->
                             DisplayPost(post)
@@ -94,12 +100,7 @@ class ListPostActivity : ComponentActivity() {
                 .height(150.dp)
                 //.background(color = Color.Gray)
                 .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.White,
-                            Color(0xFFf4717f)
-                        )
-                    ))
+                   color = Color.Gray)
                 .clickable {
                     //call the detail activity and pass the postID
                     //Toast.makeText(context, "Post clicked ${post.postId}", Toast.LENGTH_LONG).show()
