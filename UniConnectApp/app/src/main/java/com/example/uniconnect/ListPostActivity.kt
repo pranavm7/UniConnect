@@ -100,7 +100,7 @@ class ListPostActivity : ComponentActivity() {
                 .height(150.dp)
                 //.background(color = Color.Gray)
                 .background(
-                   color = Color.Gray)
+                   color = Color(0xFFDACAC2))
                 .clickable {
                     //call the detail activity and pass the postID
                     //Toast.makeText(context, "Post clicked ${post.postId}", Toast.LENGTH_LONG).show()
@@ -127,14 +127,14 @@ class ListPostActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(horizontal = 8.dp),
                         text = post.title,
-                        color = Color.White,
+                        color = Color.Black,
                         fontSize = 25.sp
                     )
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 8.dp),
                         text = "By " + post.displayName,
-                        color = Color.White,
+                        color = Color.Black,
                         fontSize = 16.sp
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -142,7 +142,7 @@ class ListPostActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(horizontal = 8.dp),
                         text = post.description,
-                        color = Color.White,
+                        color = Color.Black,
                         fontSize = 16.sp
                     )
                 }

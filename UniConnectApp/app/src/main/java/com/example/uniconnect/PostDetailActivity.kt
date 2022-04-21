@@ -178,7 +178,8 @@ fun PostDetailContent(post: PostUserVM?) {
                         .fillMaxHeight()
                         .padding(4.dp)
                         .height(150.dp)
-                        .background(color = Color.White)
+                        .background(
+                            color = Color(0xFFDACAC2))
                 )
                 {
                     Text(
