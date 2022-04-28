@@ -112,10 +112,9 @@ class MainActivity : ComponentActivity() {
                 onValueChange = { description = it },
                 label = { Text(stringResource(R.string.description)) }
             )
+
             Row(modifier = Modifier.padding(all = 2.dp)) {
-
-
-                Button(
+             Button(
                     onClick = {
                         val post = Post(title = title, description = description)
                         viewModel.savePost(post)

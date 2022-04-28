@@ -6,5 +6,4 @@ data class Post(var postId : String = "",
     override fun toString(): String {
         return "$title - $description"
     }
-
 }

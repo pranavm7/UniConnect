@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.uniconnect.dto.Comment
 import com.example.uniconnect.dto.Photo
 import com.example.uniconnect.dto.Post
 import com.example.uniconnect.dto.University
@@ -42,7 +43,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
     fun listenToThisUserPost() {
         user?.let { user ->
             firestore.collection("users").document(user.uid).collection("posts").addSnapshotListener { snapshot, error ->
-                // see of we received an error
+                // see if we received an error
                 if (error != null) {
                     Log.w("listen failed.", error)
                     return@addSnapshotListener
@@ -67,6 +68,16 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         }
     }
 
+    fun saveUser() {
+        user?.let {
+                user ->
+            val handle = firestore.collection("users").document(user.uid).set(user)
+            handle.addOnSuccessListener { Log.d("Firebase", "User Saved") }
+            handle.addOnFailureListener { Log.e("Firebase", "User save failed $user") }
+
+        }
+    }
+
     fun savePost (post: Post) {
         user?.let { user ->
             val doc = if (post.postId == "" || post.postId.isEmpty()) {
@@ -87,6 +98,7 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
             handle.addOnFailureListener { Log.d("Firebase", "Error saving document $it") }
         }
     }
+
 
     private fun uploadPhotos(post: Post) {
         photos.forEach{
@@ -144,4 +156,34 @@ class MainViewModel(var universityService: IUniversityService = UniversityServic
         }
     }
 
+    fun saveComment(comment: Comment) {
+        user?.let { user ->
+            val handle = if(comment.commentId == "" || comment.commentId.isNullOrBlank()){
+                // insert
+                firestore.collection("comments").add(comment)
+            } else {
+                //Update
+                firestore.collection("comments").document("${comment.commentId}").set(comment)
+            }
+            handle.addOnSuccessListener { Log.d("Firebase", "comment saved!") }
+            handle.addOnFailureListener { Log.d("Firebase",
+                                    "Error saving comment ${comment.commentId} \n ${it.message}",
+                                        handle.exception) }
+        }
+    }
+
+    fun deleteComment(comment: Comment) {
+        user?.let {
+            val owner = comment.userId
+            if (user!!.uid.equals(owner)) {
+                firestore.collection("comments")
+                    .document("${comment.commentId}")
+                    .delete()
+                    .addOnSuccessListener { Log.d("Firebase", "Comment successfully deleted!") }
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase","Error deleting comment ${comment.commentId}",e)
+                    }
+            }
+        }
+    }
 }
